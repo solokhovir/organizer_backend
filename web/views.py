@@ -70,8 +70,9 @@ from .serializers import ToDoSerializer
 
 
 class ToDoViewGet(APIView):
-    def get(self, request):
-        todo = ToDo.objects.all()
+    def get(self, request, chatID):
+        # chatID = request.data.get('chatId')
+        todo = ToDo.objects.filter(userID=chatID)
         serializer = ToDoSerializer(todo, many=True)
         return Response({"todos": serializer.data})
 
